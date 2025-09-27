@@ -8,7 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Save, User } from "lucide-react";
+import { Loader2, Save, User, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface CompanyProfile {
   company_name: string;
@@ -124,6 +125,15 @@ export default function Profile() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto py-8 px-4">
         <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 mb-8">
+            <Link to="/">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Dashboard
+              </Button>
+            </Link>
+          </div>
+
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
               <User className="h-5 w-5 text-white" />

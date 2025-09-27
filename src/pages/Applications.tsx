@@ -32,22 +32,13 @@ const Applications = () => {
     if (!roleId) return;
     
     try {
-      // First get the Open Role row to retrieve its owner id for RLS
-      const { data: roleRow, error: roleLookupError } = await supabase
-        .from("Open Roles")
-        .select("id")
-        .eq("job_identification", parseInt(roleId))
-        .single();
-
-      if (roleLookupError || !roleRow) {
-        console.error("Error fetching role owner id:", roleLookupError);
-        return;
-      }
+      const appId = parseInt(roleId);
+      if (Number.isNaN(appId)) return;
 
       const { data, error } = await supabase
         .from("applicants")
         .select("*")
-        .eq("role_id", roleRow.id);
+        .eq("application_id", appId);
 
       if (error) {
         console.error("Error fetching applications:", error);

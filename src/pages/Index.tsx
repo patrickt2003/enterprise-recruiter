@@ -18,6 +18,7 @@ interface OpenRole {
   "Role description": string | null;
   created_at: string;
   role_uuid: string;
+  job_identification: number;
 }
 
 const Index = () => {
@@ -29,7 +30,7 @@ const Index = () => {
     try {
       const { data, error } = await supabase
         .from("Open Roles")
-        .select("*")
+        .select("id, role_uuid, job_identification, \"Role Name\", \"Role description\", created_at")
         .order("created_at", { ascending: false });
 
       if (error) {

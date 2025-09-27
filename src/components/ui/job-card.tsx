@@ -11,6 +11,7 @@ interface JobCardProps {
     "Role description": string | null;
     created_at: string;
     role_uuid: string;
+    job_identification: number;
   };
   className?: string;
 }
@@ -57,7 +58,7 @@ export function JobCard({ role, className }: JobCardProps) {
             View Details
           </Button>
           <Button size="sm" className="flex-1 bg-hr-primary hover:bg-hr-primary-dark" asChild>
-            <Link to={`/applications/${role.role_uuid}`}>
+            <Link to={`/applications/${role.job_identification}`}>
               Manage Applications
             </Link>
           </Button>

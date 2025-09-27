@@ -57,7 +57,7 @@ export const AddApplicantDialog = ({ onApplicantAdded }: AddApplicantDialogProps
     setIsSubmitting(true);
 
     try {
-      // Use roleId directly as role_uuid since it's now the role_uuid from URL
+      // Use roleId as application_id since it matches job_identification
       const { error } = await supabase
         .from("applicants")
         .insert({
@@ -66,7 +66,7 @@ export const AddApplicantDialog = ({ onApplicantAdded }: AddApplicantDialogProps
           email: values.email,
           CV: values.cv || null,
           status: parseInt(values.status),
-          role_id: roleId,
+          application_id: parseInt(roleId),
         });
 
       if (error) {

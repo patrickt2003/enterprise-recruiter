@@ -32,11 +32,11 @@ const Applications = () => {
     if (!roleId) return;
     
     try {
-      // Use roleId as role_uuid directly since it's now the role_uuid from URL
+      // Use roleId as job_identification to match with application_id
       const { data, error } = await supabase
         .from("applicants")
         .select("*")
-        .eq("role_id", roleId);
+        .eq("application_id", roleId);
 
       if (error) {
         console.error("Error fetching applications:", error);
@@ -91,7 +91,7 @@ const Applications = () => {
         const { data, error } = await supabase
           .from("Open Roles")
           .select('"Role Name"')
-          .eq("role_uuid", roleId)
+          .eq("job_identification", roleId)
           .single();
 
         if (error) {

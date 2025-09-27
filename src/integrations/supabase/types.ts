@@ -32,7 +32,7 @@ export type Database = {
           CV?: string | null
           email?: string | null
           "first name"?: string | null
-          id: string
+          id?: string
           "last name"?: string | null
           role_id?: string | null
           status?: number | null

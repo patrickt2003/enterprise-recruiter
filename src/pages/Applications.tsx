@@ -259,9 +259,24 @@ const Applications = () => {
                        onClick={(e) => handleCardClick(application, e)}
                      >
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-base font-medium">
-                          {application.candidateName}
-                        </CardTitle>
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-base font-medium">
+                            {application.candidateName}
+                          </CardTitle>
+                          {application.stage === "screened" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-6 w-6 p-0"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // Phone action logic can be added here
+                              }}
+                            >
+                              <Phone className="h-3 w-3" />
+                            </Button>
+                          )}
+                        </div>
                       </CardHeader>
                       <CardContent className="pt-0">
                         <p className="text-sm text-muted-foreground mb-2">
@@ -286,19 +301,6 @@ const Applications = () => {
                               {targetStage.id === "second_interview" && "2"}
                             </Button>
                           ))}
-                          {application.stage === "screened" && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                // Phone action logic can be added here
-                              }}
-                            >
-                              <Phone className="h-3 w-3" />
-                            </Button>
-                          )}
                         </div>
                       </CardContent>
                     </Card>

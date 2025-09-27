@@ -14,25 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      applicants: {
+        Row: {
+          application_id: number
+          created_at: string
+          CV: string | null
+          email: string | null
+          "first name": string | null
+          id: string
+          "last name": string | null
+          role_id: string | null
+          status: number | null
+        }
+        Insert: {
+          application_id?: number
+          created_at?: string
+          CV?: string | null
+          email?: string | null
+          "first name"?: string | null
+          id: string
+          "last name"?: string | null
+          role_id?: string | null
+          status?: number | null
+        }
+        Update: {
+          application_id?: number
+          created_at?: string
+          CV?: string | null
+          email?: string | null
+          "first name"?: string | null
+          id?: string
+          "last name"?: string | null
+          role_id?: string | null
+          status?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applicants_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: true
+            referencedRelation: "Open Roles"
+            referencedColumns: ["job_identification"]
+          },
+        ]
+      }
       "Open Roles": {
         Row: {
           created_at: string
           id: string
-          Job_id: number
+          job_identification: number
           "Role description": string | null
           "Role Name": string | null
         }
         Insert: {
           created_at?: string
           id: string
-          Job_id?: number
+          job_identification?: number
           "Role description"?: string | null
           "Role Name"?: string | null
         }
         Update: {
           created_at?: string
           id?: string
-          Job_id?: number
+          job_identification?: number
           "Role description"?: string | null
           "Role Name"?: string | null
         }
@@ -40,7 +84,7 @@ export type Database = {
           {
             foreignKeyName: "Open Roles_id_fkey"
             columns: ["id"]
-            isOneToOne: true
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
           },

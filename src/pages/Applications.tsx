@@ -4,8 +4,9 @@ import { Header } from "@/components/ui/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { AddApplicantDialog } from "@/components/AddApplicantDialog";
 
 interface Application {
   id: string;
@@ -13,6 +14,7 @@ interface Application {
   email: string;
   appliedDate: string;
   stage: "applied" | "screened" | "first_interview" | "second_interview";
+  cv?: string;
 }
 
 type OpenRole = {
@@ -26,37 +28,52 @@ const Applications = () => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Mock data for now since we don't have an applications table yet
-  const mockApplications: Application[] = [
-    {
-      id: "1",
-      candidateName: "John Smith",
-      email: "john.smith@email.com",
-      appliedDate: "2024-01-15",
-      stage: "applied"
-    },
-    {
-      id: "2",
-      candidateName: "Sarah Johnson",
-      email: "sarah.johnson@email.com",
-      appliedDate: "2024-01-14",
-      stage: "screened"
-    },
-    {
-      id: "3",
-      candidateName: "Mike Chen",
-      email: "mike.chen@email.com",
-      appliedDate: "2024-01-13",
-      stage: "first_interview"
-    },
-    {
-      id: "4",
-      candidateName: "Emily Davis",
-      email: "emily.davis@email.com",
-      appliedDate: "2024-01-12",
-      stage: "second_interview"
+  const fetchApplications = async () => {
+    if (!roleId) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from("applicants")
+        .select("*")
+        .eq("role_id", roleId);
+
+      if (error) {
+        console.error("Error fetching applications:", error);
+        return;
+      }
+
+      const formattedApplications: Application[] = data?.map((applicant) => ({
+        id: applicant.id,
+        candidateName: `${applicant["first name"] || ""} ${applicant["last name"] || ""}`.trim(),
+        email: applicant.email || "",
+        appliedDate: applicant.created_at?.split("T")[0] || "",
+        stage: getStageFromStatus(applicant.status || 1),
+        cv: applicant.CV || undefined,
+      })) || [];
+
+      setApplications(formattedApplications);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
     }
-  ];
+  };
+
+  const getStageFromStatus = (status: number): Application["stage"] => {
+    switch (status) {
+      case 2: return "screened";
+      case 3: return "first_interview";
+      case 4: return "second_interview";
+      default: return "applied";
+    }
+  };
+
+  const getStatusFromStage = (stage: Application["stage"]): number => {
+    switch (stage) {
+      case "screened": return 2;
+      case "first_interview": return 3;
+      case "second_interview": return 4;
+      default: return 1;
+    }
+  };
 
   const stages = [
     { id: "applied", title: "Applied", color: "bg-blue-100 text-blue-800" },
@@ -86,23 +103,43 @@ const Applications = () => {
       }
     };
 
-    fetchRole();
-    setApplications(mockApplications);
-    setLoading(false);
+    const loadData = async () => {
+      await fetchRole();
+      await fetchApplications();
+      setLoading(false);
+    };
+
+    loadData();
   }, [roleId]);
 
   const getApplicationsByStage = (stageId: string) => {
     return applications.filter(app => app.stage === stageId);
   };
 
-  const moveApplication = (applicationId: string, newStage: string) => {
-    setApplications(prev => 
-      prev.map(app => 
-        app.id === applicationId 
-          ? { ...app, stage: newStage as Application["stage"] }
-          : app
-      )
-    );
+  const moveApplication = async (applicationId: string, newStage: string) => {
+    const newStatus = getStatusFromStage(newStage as Application["stage"]);
+    
+    try {
+      const { error } = await supabase
+        .from("applicants")
+        .update({ status: newStatus })
+        .eq("id", applicationId);
+
+      if (error) {
+        console.error("Error updating application:", error);
+        return;
+      }
+
+      setApplications(prev => 
+        prev.map(app => 
+          app.id === applicationId 
+            ? { ...app, stage: newStage as Application["stage"] }
+            : app
+        )
+      );
+    } catch (error) {
+      console.error("Error updating application:", error);
+    }
   };
 
   if (loading) {
@@ -122,23 +159,26 @@ const Applications = () => {
       
       <main className="px-6 py-8">
         {/* Page Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => navigate("/")}
-            className="p-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              Applications for {role?.["Role Name"] || "Role"}
-            </h1>
-            <p className="text-muted-foreground">
-              Manage candidate applications through the hiring pipeline
-            </p>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate("/")}
+              className="p-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground mb-2">
+                Applications for {role?.["Role Name"] || "Role"}
+              </h1>
+              <p className="text-muted-foreground">
+                Manage candidate applications through the hiring pipeline
+              </p>
+            </div>
           </div>
+          <AddApplicantDialog onApplicantAdded={fetchApplications} />
         </div>
 
         {/* Kanban Board */}

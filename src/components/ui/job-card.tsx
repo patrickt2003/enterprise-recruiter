@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { MapPin, Clock, Users, Eye } from "lucide-react";
+import { MapPin, Clock, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface JobCardProps {
@@ -41,10 +41,6 @@ export function JobCard({ job, className }: JobCardProps) {
           </div>
           <div className="flex items-center gap-2 text-muted-foreground">
             <span className="text-xs bg-secondary px-2 py-1 rounded">{job.type}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-hr-success" />
-            <span className="font-medium text-hr-success">{job.applicants} applicants</span>
           </div>
         </div>
       </CardContent>

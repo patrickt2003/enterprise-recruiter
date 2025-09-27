@@ -1,49 +1,52 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { MapPin, Clock, Eye } from "lucide-react";
+import { Calendar, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface JobCardProps {
-  job: {
+  role: {
     id: string;
-    title: string;
-    department: string;
-    location: string;
-    type: string;
-    postedDate: string;
-    applicants: number;
-    priority: "high" | "medium" | "low";
+    "Role Name": string | null;
+    "Role description": string | null;
+    created_at: string;
   };
   className?: string;
 }
 
-export function JobCard({ job, className }: JobCardProps) {
+export function JobCard({ role, className }: JobCardProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+    
+    if (diffInDays === 0) return "Today";
+    if (diffInDays === 1) return "1 day ago";
+    if (diffInDays < 7) return `${diffInDays} days ago`;
+    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} week${Math.floor(diffInDays / 7) > 1 ? 's' : ''} ago`;
+    return `${Math.floor(diffInDays / 30)} month${Math.floor(diffInDays / 30) > 1 ? 's' : ''} ago`;
+  };
+
   return (
     <Card className={cn("bg-gradient-card border shadow-card hover:shadow-elevated transition-all duration-200", className)}>
       <CardHeader className="pb-4">
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <h3 className="font-semibold text-lg text-card-foreground leading-tight">{job.title}</h3>
-            <p className="text-sm text-muted-foreground">{job.department}</p>
+        <div className="space-y-2">
+          <h3 className="font-semibold text-lg text-card-foreground leading-tight">
+            {role["Role Name"] || "Untitled Role"}
+          </h3>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar className="h-4 w-4" />
+            <span>Posted {formatDate(role.created_at)}</span>
           </div>
         </div>
       </CardHeader>
       
-      <CardContent className="pb-4">
-        <div className="grid grid-cols-2 gap-4 text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <MapPin className="h-4 w-4" />
-            <span>{job.location}</span>
-          </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Clock className="h-4 w-4" />
-            <span>{job.postedDate}</span>
-          </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <span className="text-xs bg-secondary px-2 py-1 rounded">{job.type}</span>
-          </div>
-        </div>
-      </CardContent>
+      {role["Role description"] && (
+        <CardContent className="pb-4">
+          <p className="text-sm text-muted-foreground line-clamp-3">
+            {role["Role description"]}
+          </p>
+        </CardContent>
+      )}
       
       <CardFooter className="pt-4 border-t border-border">
         <div className="flex gap-2 w-full">

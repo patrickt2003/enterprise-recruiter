@@ -16,6 +16,7 @@ interface Application {
   appliedDate: string;
   stage: "applied" | "screened" | "first_interview" | "second_interview";
   cv?: string;
+  rank?: number;
 }
 
 type OpenRole = {
@@ -56,6 +57,7 @@ const Applications = () => {
         appliedDate: applicant.created_at?.split("T")[0] || "",
         stage: getStageFromStatus(applicant.status || 1),
         cv: applicant.CV || undefined,
+        rank: applicant.rank || 0,
       })) || [];
 
       setApplications(formattedApplications);
@@ -120,7 +122,9 @@ const Applications = () => {
   }, [roleId]);
 
   const getApplicationsByStage = (stageId: string) => {
-    return applications.filter(app => app.stage === stageId);
+    return applications
+      .filter(app => app.stage === stageId)
+      .sort((a, b) => (a.rank || 0) - (b.rank || 0));
   };
 
   const moveApplication = async (applicationId: string, newStage: string) => {

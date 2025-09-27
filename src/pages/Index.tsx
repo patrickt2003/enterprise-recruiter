@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PostRoleDialog } from "@/components/PostRoleDialog";
 import { mockJobs } from "@/data/mock-data";
 import { 
   Filter,
@@ -13,6 +14,7 @@ import {
 
 const Index = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
+  const [isPostRoleDialogOpen, setIsPostRoleDialogOpen] = useState(false);
 
   const filteredJobs = mockJobs.filter(job => {
     const matchesDepartment = selectedDepartment === "all" || job.department.toLowerCase() === selectedDepartment;
@@ -34,7 +36,10 @@ const Index = () => {
             <h1 className="text-3xl font-bold text-foreground mb-2">Application Management</h1>
             <p className="text-muted-foreground">Track open positions and manage candidate applications</p>
           </div>
-          <Button className="bg-hr-primary hover:bg-hr-primary-dark">
+          <Button 
+            className="bg-hr-primary hover:bg-hr-primary-dark"
+            onClick={() => setIsPostRoleDialogOpen(true)}
+          >
             <Plus className="h-4 w-4 mr-2" />
             Post New Role
           </Button>
@@ -80,6 +85,11 @@ const Index = () => {
           </Card>
         </div>
       </main>
+      
+      <PostRoleDialog 
+        open={isPostRoleDialogOpen}
+        onOpenChange={setIsPostRoleDialogOpen}
+      />
     </div>
   );
 };

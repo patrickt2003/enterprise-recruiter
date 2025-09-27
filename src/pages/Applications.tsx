@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AddApplicantDialog } from "@/components/AddApplicantDialog";
-
+import { toast } from "@/components/ui/use-toast";
 interface Application {
   id: string;
   candidateName: string;
@@ -133,10 +133,12 @@ const Applications = () => {
 
       if (error) {
         console.error("Error updating application:", error);
+        toast({ title: "Update failed", description: "Could not update candidate status.", variant: "destructive" });
         return;
       }
 
       console.log('Successfully updated application status');
+      toast({ title: "Status updated", description: `Moved to ${newStage.replace('_', ' ')}` });
       
       setApplications(prev => 
         prev.map(app => 

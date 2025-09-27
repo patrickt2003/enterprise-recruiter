@@ -57,7 +57,17 @@ export const AddApplicantDialog = ({ onApplicantAdded }: AddApplicantDialogProps
     setIsSubmitting(true);
 
     try {
-      // Use roleId as application_id since it matches job_identification
+      // Fetch Open Role id to satisfy RLS and link, then insert
+      const { data: roleRow, error: roleFetchError } = await supabase
+        .from("Open Roles")
+        .select("id")
+        .eq("job_identification", parseInt(roleId))
+        .single();
+
+      if (roleFetchError || !roleRow) {
+        throw roleFetchError || new Error("Role not found for this Application ID");
+      }
+
       const { error } = await supabase
         .from("applicants")
         .insert({
@@ -67,6 +77,7 @@ export const AddApplicantDialog = ({ onApplicantAdded }: AddApplicantDialogProps
           CV: values.cv || null,
           status: parseInt(values.status),
           application_id: parseInt(roleId),
+          role_id: roleRow.id,
         });
 
       if (error) {

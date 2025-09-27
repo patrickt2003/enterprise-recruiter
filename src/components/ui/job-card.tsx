@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { MapPin, Clock, Users, Eye } from "lucide-react";
@@ -19,17 +18,6 @@ interface JobCardProps {
 }
 
 export function JobCard({ job, className }: JobCardProps) {
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "high":
-        return "bg-hr-info/10 text-hr-info border-hr-info/20";
-      case "medium":
-        return "bg-hr-warning/10 text-hr-warning border-hr-warning/20";
-      default:
-        return "bg-muted text-muted-foreground border-border";
-    }
-  };
-
   return (
     <Card className={cn("bg-gradient-card border shadow-card hover:shadow-elevated transition-all duration-200", className)}>
       <CardHeader className="pb-4">
@@ -38,9 +26,6 @@ export function JobCard({ job, className }: JobCardProps) {
             <h3 className="font-semibold text-lg text-card-foreground leading-tight">{job.title}</h3>
             <p className="text-sm text-muted-foreground">{job.department}</p>
           </div>
-          <Badge variant="outline" className={cn("text-xs", getPriorityColor(job.priority))}>
-            {job.priority} priority
-          </Badge>
         </div>
       </CardHeader>
       

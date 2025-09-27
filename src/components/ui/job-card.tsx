@@ -3,6 +3,8 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Calendar, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { JobDetailsDialog } from "@/components/JobDetailsDialog";
 
 interface JobCardProps {
   role: {
@@ -17,6 +19,8 @@ interface JobCardProps {
 }
 
 export function JobCard({ role, className }: JobCardProps) {
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -53,7 +57,12 @@ export function JobCard({ role, className }: JobCardProps) {
       
       <CardFooter className="pt-4 border-t border-border">
         <div className="flex gap-2 w-full">
-          <Button variant="outline" size="sm" className="flex-1">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1"
+            onClick={() => setIsDetailsDialogOpen(true)}
+          >
             <Eye className="h-4 w-4 mr-2" />
             View Details
           </Button>
@@ -64,6 +73,12 @@ export function JobCard({ role, className }: JobCardProps) {
           </Button>
         </div>
       </CardFooter>
+      
+      <JobDetailsDialog
+        isOpen={isDetailsDialogOpen}
+        onClose={() => setIsDetailsDialogOpen(false)}
+        role={role}
+      />
     </Card>
   );
 }

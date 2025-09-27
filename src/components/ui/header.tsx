@@ -1,4 +1,4 @@
-import { Search, Bell, Settings, User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -33,15 +33,6 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-4 w-4" />
-            <span className="absolute -top-1 -right-1 h-2 w-2 bg-destructive rounded-full"></span>
-          </Button>
-          
-          <Button variant="ghost" size="sm">
-            <Settings className="h-4 w-4" />
-          </Button>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">

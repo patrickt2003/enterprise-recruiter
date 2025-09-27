@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Building } from "lucide-react";
+import { Calendar, Building } from "lucide-react";
 
 interface JobDetailsDialogProps {
   isOpen: boolean;
@@ -60,21 +59,6 @@ export function JobDetailsDialog({ isOpen, onClose, role }: JobDetailsDialogProp
                   No description provided for this role.
                 </p>
               )}
-            </div>
-          </div>
-
-          {/* Additional Information */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold">Additional Information</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div>
-                <span className="font-medium">Role UUID:</span>
-                <p className="text-muted-foreground break-all">{role.role_uuid}</p>
-              </div>
-              <div>
-                <span className="font-medium">Status:</span>
-                <Badge variant="secondary" className="ml-2">Active</Badge>
-              </div>
             </div>
           </div>
         </div>

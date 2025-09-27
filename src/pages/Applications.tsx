@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AddApplicantDialog } from "@/components/AddApplicantDialog";
+import { ApplicantCVDialog } from "@/components/ApplicantCVDialog";
 import { toast } from "@/components/ui/use-toast";
 interface Application {
   id: string;
@@ -28,6 +29,8 @@ const Applications = () => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [draggedApplication, setDraggedApplication] = useState<string | null>(null);
+  const [selectedApplicant, setSelectedApplicant] = useState<Application | null>(null);
+  const [isCVDialogOpen, setIsCVDialogOpen] = useState(false);
 
   const fetchApplications = async () => {
     if (!roleId) return;
@@ -174,6 +177,15 @@ const Applications = () => {
     setDraggedApplication(null);
   };
 
+  const handleCardClick = (application: Application, e: React.MouseEvent) => {
+    // Don't open dialog if clicking on buttons
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    setSelectedApplicant(application);
+    setIsCVDialogOpen(true);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -231,15 +243,16 @@ const Applications = () => {
                      onDragOver={handleDragOver}
                      onDrop={(e) => handleDrop(e, stage.id)}
                 >
-                  {stageApplications.map((application) => (
+                   {stageApplications.map((application) => (
                      <Card 
                        key={application.id} 
-                       className={`bg-card hover:shadow-md transition-shadow cursor-move ${
+                       className={`bg-card hover:shadow-md transition-shadow cursor-pointer ${
                          draggedApplication === application.id ? 'opacity-50' : ''
                        }`}
                        draggable
                        onDragStart={(e) => handleDragStart(e, application.id)}
                        onDragEnd={handleDragEnd}
+                       onClick={(e) => handleCardClick(application, e)}
                      >
                       <CardHeader className="pb-3">
                         <CardTitle className="text-base font-medium">
@@ -285,6 +298,12 @@ const Applications = () => {
           })}
         </div>
       </main>
+
+      <ApplicantCVDialog 
+        isOpen={isCVDialogOpen}
+        onClose={() => setIsCVDialogOpen(false)}
+        applicant={selectedApplicant}
+      />
     </div>
   );
 };

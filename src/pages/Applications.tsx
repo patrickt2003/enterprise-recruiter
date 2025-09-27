@@ -267,13 +267,13 @@ const Applications = () => {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="text-xs h-6 w-6 p-0"
+                              className="text-xs h-8 w-8 p-0"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 // Phone action logic can be added here
                               }}
                             >
-                              <Phone className="h-4 w-4" />
+                              <Phone className="h-8 w-8" />
                             </Button>
                           )}
                         </div>

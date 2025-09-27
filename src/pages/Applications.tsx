@@ -123,6 +123,8 @@ const Applications = () => {
   const moveApplication = async (applicationId: string, newStage: string) => {
     const newStatus = getStatusFromStage(newStage as Application["stage"]);
     
+    console.log('Moving application:', applicationId, 'to stage:', newStage, 'with status:', newStatus);
+    
     try {
       const { error } = await supabase
         .from("applicants")
@@ -134,6 +136,8 @@ const Applications = () => {
         return;
       }
 
+      console.log('Successfully updated application status');
+      
       setApplications(prev => 
         prev.map(app => 
           app.id === applicationId 

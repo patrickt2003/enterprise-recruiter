@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Calendar, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface JobCardProps {
   role: {
@@ -54,8 +55,10 @@ export function JobCard({ role, className }: JobCardProps) {
             <Eye className="h-4 w-4 mr-2" />
             View Details
           </Button>
-          <Button size="sm" className="flex-1 bg-hr-primary hover:bg-hr-primary-dark">
-            Manage Applications
+          <Button size="sm" className="flex-1 bg-hr-primary hover:bg-hr-primary-dark" asChild>
+            <Link to={`/applications/${role.id}`}>
+              Manage Applications
+            </Link>
           </Button>
         </div>
       </CardFooter>

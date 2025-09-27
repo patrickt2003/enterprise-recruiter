@@ -13,24 +13,12 @@ interface JobCardProps {
     type: string;
     postedDate: string;
     applicants: number;
-    status: "active" | "urgent" | "closing-soon";
     priority: "high" | "medium" | "low";
   };
   className?: string;
 }
 
 export function JobCard({ job, className }: JobCardProps) {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "urgent":
-        return "bg-destructive/10 text-destructive border-destructive/20";
-      case "closing-soon":
-        return "bg-hr-warning/10 text-hr-warning border-hr-warning/20";
-      default:
-        return "bg-hr-success/10 text-hr-success border-hr-success/20";
-    }
-  };
-
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "high":
@@ -50,14 +38,9 @@ export function JobCard({ job, className }: JobCardProps) {
             <h3 className="font-semibold text-lg text-card-foreground leading-tight">{job.title}</h3>
             <p className="text-sm text-muted-foreground">{job.department}</p>
           </div>
-          <div className="flex gap-2">
-            <Badge className={cn("text-xs", getStatusColor(job.status))}>
-              {job.status.replace("-", " ")}
-            </Badge>
-            <Badge variant="outline" className={cn("text-xs", getPriorityColor(job.priority))}>
-              {job.priority} priority
-            </Badge>
-          </div>
+          <Badge variant="outline" className={cn("text-xs", getPriorityColor(job.priority))}>
+            {job.priority} priority
+          </Badge>
         </div>
       </CardHeader>
       

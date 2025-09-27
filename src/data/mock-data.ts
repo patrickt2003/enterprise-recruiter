@@ -7,7 +7,6 @@ export const mockJobs = [
     type: "Full-time",
     postedDate: "2 days ago",
     applicants: 45,
-    status: "active" as const,
     priority: "high" as const,
   },
   {
@@ -18,7 +17,6 @@ export const mockJobs = [
     type: "Full-time",
     postedDate: "1 week ago",
     applicants: 32,
-    status: "urgent" as const,
     priority: "high" as const,
   },
   {
@@ -29,7 +27,6 @@ export const mockJobs = [
     type: "Full-time",
     postedDate: "3 days ago",
     applicants: 28,
-    status: "active" as const,
     priority: "medium" as const,
   },
   {
@@ -40,7 +37,6 @@ export const mockJobs = [
     type: "Full-time",
     postedDate: "5 days ago",
     applicants: 19,
-    status: "closing-soon" as const,
     priority: "medium" as const,
   },
   {
@@ -51,7 +47,6 @@ export const mockJobs = [
     type: "Full-time",
     postedDate: "1 week ago",
     applicants: 67,
-    status: "active" as const,
     priority: "low" as const,
   },
   {
@@ -62,7 +57,6 @@ export const mockJobs = [
     type: "Full-time",
     postedDate: "4 days ago",
     applicants: 23,
-    status: "urgent" as const,
     priority: "high" as const,
   },
 ];

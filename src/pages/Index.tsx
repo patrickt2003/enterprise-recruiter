@@ -13,17 +13,14 @@ import {
 
 const Index = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
-  const [selectedStatus, setSelectedStatus] = useState<string>("all");
 
   const filteredJobs = mockJobs.filter(job => {
     const matchesDepartment = selectedDepartment === "all" || job.department.toLowerCase() === selectedDepartment;
-    const matchesStatus = selectedStatus === "all" || job.status === selectedStatus;
-    return matchesDepartment && matchesStatus;
+    return matchesDepartment;
   });
 
   const totalApplicants = mockJobs.reduce((sum, job) => sum + job.applicants, 0);
   const totalOpenRoles = mockJobs.length;
-  const urgentRoles = mockJobs.filter(job => job.status === "urgent").length;
   const avgApplicantsPerRole = Math.round(totalApplicants / totalOpenRoles);
 
   return (
@@ -63,18 +60,6 @@ const Index = () => {
                       <SelectItem value="design">Design</SelectItem>
                       <SelectItem value="sales">Sales</SelectItem>
                       <SelectItem value="analytics">Analytics</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  
-                  <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-                    <SelectTrigger className="w-32">
-                      <SelectValue placeholder="Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="urgent">Urgent</SelectItem>
-                      <SelectItem value="closing-soon">Closing Soon</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

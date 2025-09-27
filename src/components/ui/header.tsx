@@ -1,6 +1,5 @@
-import { Search, User } from "lucide-react";
+import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -23,21 +22,11 @@ export function Header() {
   return (
     <header className="bg-card border-b border-border shadow-sm">
       <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">HR</span>
-            </div>
-            <h1 className="text-xl font-bold text-card-foreground">TalentHub</h1>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm">HR</span>
           </div>
-          
-          <div className="relative w-96">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search roles, departments, or candidates..."
-              className="pl-10 bg-muted/50 border-border"
-            />
-          </div>
+          <h1 className="text-xl font-bold text-card-foreground">TalentHub</h1>
         </div>
 
         <div className="flex items-center gap-4">

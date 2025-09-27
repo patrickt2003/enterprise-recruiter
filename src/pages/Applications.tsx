@@ -27,6 +27,7 @@ const Applications = () => {
   const [role, setRole] = useState<OpenRole | null>(null);
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
+  const [draggedApplication, setDraggedApplication] = useState<string | null>(null);
 
   const fetchApplications = async () => {
     if (!roleId) return;
@@ -145,6 +146,28 @@ const Applications = () => {
     }
   };
 
+  const handleDragStart = (e: React.DragEvent, applicationId: string) => {
+    setDraggedApplication(applicationId);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, targetStage: string) => {
+    e.preventDefault();
+    if (draggedApplication && targetStage !== applications.find(app => app.id === draggedApplication)?.stage) {
+      moveApplication(draggedApplication, targetStage);
+    }
+    setDraggedApplication(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedApplication(null);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -198,13 +221,20 @@ const Applications = () => {
                   </Badge>
                 </div>
                 
-                <div className="space-y-3 flex-1">
+                <div className="space-y-3 flex-1"
+                     onDragOver={handleDragOver}
+                     onDrop={(e) => handleDrop(e, stage.id)}
+                >
                   {stageApplications.map((application) => (
-                    <Card 
-                      key={application.id} 
-                      className="bg-card hover:shadow-md transition-shadow cursor-move"
-                      draggable
-                    >
+                     <Card 
+                       key={application.id} 
+                       className={`bg-card hover:shadow-md transition-shadow cursor-move ${
+                         draggedApplication === application.id ? 'opacity-50' : ''
+                       }`}
+                       draggable
+                       onDragStart={(e) => handleDragStart(e, application.id)}
+                       onDragEnd={handleDragEnd}
+                     >
                       <CardHeader className="pb-3">
                         <CardTitle className="text-base font-medium">
                           {application.candidateName}

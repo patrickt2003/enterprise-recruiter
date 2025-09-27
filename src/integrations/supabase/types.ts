@@ -56,6 +56,13 @@ export type Database = {
             referencedRelation: "Open Roles"
             referencedColumns: ["job_identification"]
           },
+          {
+            foreignKeyName: "applicants_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "Open Roles"
+            referencedColumns: ["role_uuid"]
+          },
         ]
       }
       "Open Roles": {
@@ -65,6 +72,7 @@ export type Database = {
           job_identification: number
           "Role description": string | null
           "Role Name": string | null
+          role_uuid: string
         }
         Insert: {
           created_at?: string
@@ -72,6 +80,7 @@ export type Database = {
           job_identification?: number
           "Role description"?: string | null
           "Role Name"?: string | null
+          role_uuid?: string
         }
         Update: {
           created_at?: string
@@ -79,6 +88,7 @@ export type Database = {
           job_identification?: number
           "Role description"?: string | null
           "Role Name"?: string | null
+          role_uuid?: string
         }
         Relationships: [
           {

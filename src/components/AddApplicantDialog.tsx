@@ -57,6 +57,17 @@ export const AddApplicantDialog = ({ onApplicantAdded }: AddApplicantDialogProps
     setIsSubmitting(true);
 
     try {
+      // First get the role_uuid for this role
+      const { data: role, error: roleError } = await supabase
+        .from("Open Roles")
+        .select("role_uuid")
+        .eq("id", roleId)
+        .single();
+
+      if (roleError || !role) {
+        throw new Error("Role not found");
+      }
+
       const { error } = await supabase
         .from("applicants")
         .insert({
@@ -65,7 +76,7 @@ export const AddApplicantDialog = ({ onApplicantAdded }: AddApplicantDialogProps
           email: values.email,
           CV: values.cv || null,
           status: parseInt(values.status),
-          role_id: roleId,
+          role_id: role.role_uuid,
         });
 
       if (error) {

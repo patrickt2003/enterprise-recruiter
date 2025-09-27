@@ -273,7 +273,7 @@ const Applications = () => {
                                 // Phone action logic can be added here
                               }}
                             >
-                              <Phone className="h-3 w-3" />
+                              <Phone className="h-4 w-4" />
                             </Button>
                           )}
                         </div>

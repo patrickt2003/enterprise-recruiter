@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      "Open Roles": {
+        Row: {
+          created_at: string
+          id: string
+          Job_id: number
+          "Role description": string | null
+          "Role Name": string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          Job_id?: number
+          "Role description"?: string | null
+          "Role Name"?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          Job_id?: number
+          "Role description"?: string | null
+          "Role Name"?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Open Roles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null

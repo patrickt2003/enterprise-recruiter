@@ -41,9 +41,21 @@ export const PostRoleDialog = ({ open, onOpenChange, onRoleCreated }: PostRoleDi
 
     setIsSubmitting(true);
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to post a role",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from("Open Roles")
         .insert({
+          id: user.id,
           "Role Name": roleName.trim(),
           "Role description": roleDescription.trim() || null,
         });

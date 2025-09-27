@@ -4,7 +4,7 @@ import { Header } from "@/components/ui/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Phone } from "lucide-react";
+import { ArrowLeft, Phone, Video } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AddApplicantDialog } from "@/components/AddApplicantDialog";
 import { ApplicantCVDialog } from "@/components/ApplicantCVDialog";
@@ -274,6 +274,19 @@ const Applications = () => {
                               }}
                             >
                               <Phone className="h-48 w-48" />
+                            </Button>
+                          )}
+                          {application.stage === "first_interview" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-16 w-16 p-0"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // Video action logic can be added here
+                              }}
+                            >
+                              <Video className="h-48 w-48" />
                             </Button>
                           )}
                         </div>

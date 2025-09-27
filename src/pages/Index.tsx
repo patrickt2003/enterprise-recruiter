@@ -17,6 +17,7 @@ interface OpenRole {
   "Role Name": string | null;
   "Role description": string | null;
   created_at: string;
+  role_uuid: string;
 }
 
 const Index = () => {

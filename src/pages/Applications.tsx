@@ -32,22 +32,11 @@ const Applications = () => {
     if (!roleId) return;
     
     try {
-      // First get the role_uuid for this role
-      const { data: roleData, error: roleError } = await supabase
-        .from("Open Roles")
-        .select("role_uuid")
-        .eq("id", roleId)
-        .single();
-
-      if (roleError || !roleData) {
-        console.error("Error fetching role:", roleError);
-        return;
-      }
-
+      // Use roleId as role_uuid directly since it's now the role_uuid from URL
       const { data, error } = await supabase
         .from("applicants")
         .select("*")
-        .eq("role_id", roleData.role_uuid);
+        .eq("role_id", roleId);
 
       if (error) {
         console.error("Error fetching applications:", error);
@@ -102,8 +91,8 @@ const Applications = () => {
         const { data, error } = await supabase
           .from("Open Roles")
           .select('"Role Name"')
-          .eq("id", roleId)
-          .maybeSingle();
+          .eq("role_uuid", roleId)
+          .single();
 
         if (error) {
           console.error("Error fetching role:", error);

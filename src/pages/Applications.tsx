@@ -4,7 +4,7 @@ import { Header } from "@/components/ui/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AddApplicantDialog } from "@/components/AddApplicantDialog";
 import { ApplicantCVDialog } from "@/components/ApplicantCVDialog";
@@ -286,6 +286,19 @@ const Applications = () => {
                               {targetStage.id === "second_interview" && "2"}
                             </Button>
                           ))}
+                          {application.stage === "screened" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // Phone action logic can be added here
+                              }}
+                            >
+                              <Phone className="h-3 w-3" />
+                            </Button>
+                          )}
                         </div>
                       </CardContent>
                     </Card>

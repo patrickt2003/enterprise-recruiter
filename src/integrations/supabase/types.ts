@@ -52,16 +52,9 @@ export type Database = {
           {
             foreignKeyName: "applicants_application_id_fkey"
             columns: ["application_id"]
-            isOneToOne: true
-            referencedRelation: "Open Roles"
-            referencedColumns: ["job_identification"]
-          },
-          {
-            foreignKeyName: "applicants_role_id_fkey"
-            columns: ["role_id"]
             isOneToOne: false
             referencedRelation: "Open Roles"
-            referencedColumns: ["role_uuid"]
+            referencedColumns: ["job_identification"]
           },
         ]
       }

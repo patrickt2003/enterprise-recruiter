@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Header } from "@/components/ui/header";
-import { StatCard } from "@/components/ui/stat-card";
 import { JobCard } from "@/components/ui/job-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -49,32 +48,6 @@ const Index = () => {
           </Button>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard
-            title="Total Open Roles"
-            value={totalOpenRoles}
-            description="Across all departments"
-            trend={{ value: 12, direction: "up" }}
-          />
-          <StatCard
-            title="Total Applicants"
-            value={totalApplicants}
-            description="All active applications"
-            trend={{ value: 8, direction: "up" }}
-          />
-          <StatCard
-            title="Urgent Roles"
-            value={urgentRoles}
-            description="Require immediate attention"
-          />
-          <StatCard
-            title="Avg. Applicants/Role"
-            value={avgApplicantsPerRole}
-            description="Application conversion rate"
-            trend={{ value: 5, direction: "up" }}
-          />
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Job Listings */}

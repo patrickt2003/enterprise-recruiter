@@ -126,15 +126,6 @@ export default function Profile() {
       <div className="container mx-auto py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-8">
-            <Link to="/">
-              <Button variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Dashboard
-              </Button>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
               <User className="h-5 w-5 text-white" />
             </div>
@@ -238,7 +229,13 @@ export default function Profile() {
                   </p>
                 </div>
 
-                <div className="flex justify-end pt-4">
+                <div className="flex justify-between items-center pt-4">
+                  <Link to="/">
+                    <Button variant="outline">
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Back to Dashboard
+                    </Button>
+                  </Link>
                   <Button onClick={saveProfile} disabled={saving} className="min-w-32">
                     {saving ? (
                       <>

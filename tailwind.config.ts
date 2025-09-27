@@ -57,6 +57,21 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Custom HR Platform Colors
+        "hr-primary": "hsl(var(--hr-primary))",
+        "hr-primary-dark": "hsl(var(--hr-primary-dark))",
+        "hr-success": "hsl(var(--hr-success))",
+        "hr-warning": "hsl(var(--hr-warning))",
+        "hr-info": "hsl(var(--hr-info))",
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-card": "var(--gradient-card)",
+        "gradient-accent": "var(--gradient-accent)",
+      },
+      boxShadow: {
+        "card": "var(--shadow-card)",
+        "elevated": "var(--shadow-elevated)",
       },
       borderRadius: {
         lg: "var(--radius)",

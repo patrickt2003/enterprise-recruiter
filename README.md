@@ -1,54 +1,4 @@
-# Welcome to your Lovable project
-
-## Project info
-
-**URL**: https://lovable.dev/projects/703902f7-bbac-4b6d-89d0-d2c36ee45b11
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/703902f7-bbac-4b6d-89d0-d2c36ee45b11) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This is 
 
 ## What technologies are used for this project?
 
@@ -60,14 +10,65 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/703902f7-bbac-4b6d-89d0-d2c36ee45b11) and click on Share -> Publish.
+## Project Description
 
-## Can I connect a custom domain to my Lovable project?
+The submitted project is a web-based applicant management system designed for HR enterprises. It enables companies to streamline and automate their applicant evaluation process through AI-powered tools and structured interview stages.
 
-Yes, you can!
+## Core Functionality
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Applicant Tracking via Kanban
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Each open job posting is associated with a 4-stage Kanban board.
+
+In the first stage, all applicants are listed and automatically ranked based on their CV.
+
+AI Voice Agent Interview
+
+In the second stage, an AI-powered voice agent calls the applicant.
+
+The purpose of this interview is to evaluate the applicant’s motivation for the role.
+
+Video Interview with Anti-Cheating System
+
+Applicants who advance proceed to a video interview.
+
+The interview integrates an in-house developed eye-tracking software to ensure authenticity and prevent cheating.
+
+Completion of the Application Process
+
+Applicants who successfully pass all stages are considered to have completed the structured application pipeline.
+
+## Technology Stack
+
+Web Application Framework: Vite (with Lovable)
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+AI Voice Agent: Dust
+
+Eye-Tracking Anti-Cheating Software: Self-developed solution, OpenAI Realtime API Agents
+
+Additional Partner Technologies: [List remaining tools to satisfy the minimum requirement of three]
+
+## Installation and Setup
+The Web App is live on Vercel: https://enterprise-recruiter.vercel.app/
+To access it with existing data, use:
+username: patrick.trost@whu.edu
+password: abcdef
+
+# Other feaures: Clone the repository
+git clone https://github.com/your-team/your-project.git
+
+# Navigate into the project directory
+cd your-project
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev

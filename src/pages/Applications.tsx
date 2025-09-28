@@ -174,7 +174,7 @@ const Applications = () => {
         
         // Calculate score: higher rank (lower number) = higher score
         const fitScore = maxScore - ((rank - 1) / (totalApplicants - 1)) * scoreRange;
-        return Math.round(fitScore * 100) / 100; // Round to 2 decimal places
+        return Math.round(fitScore); // Round to nearest integer
       };
 
       // Update each applicant with their random rank and corresponding fit score

@@ -1,19 +1,6 @@
-This is 
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-
 ## Project Description
 
-The submitted project is a web-based applicant management system designed for HR enterprises. It enables companies to streamline and automate their applicant evaluation process through AI-powered tools and structured interview stages.
+The submitted project is a B2B web-based applicant management system designed for HR enterprises. It enables companies to streamline and automate their applicant evaluation process through AI-powered tools and structured interview stages.
 
 ## Core Functionality
 

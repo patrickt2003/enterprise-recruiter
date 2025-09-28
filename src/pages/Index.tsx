@@ -28,9 +28,18 @@ const Index = () => {
 
   const fetchRoles = async () => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setRoles([]);
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from("Open Roles")
         .select("id, role_uuid, job_identification, \"Role Name\", \"Role description\", created_at")
+        .eq("id", user.id)
         .order("created_at", { ascending: false });
 
       if (error) {

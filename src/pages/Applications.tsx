@@ -333,39 +333,46 @@ const Applications = () => {
                        onDragEnd={handleDragEnd}
                        onClick={(e) => handleCardClick(application, e)}
                      >
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="text-base font-medium">
-                            {application.candidateName}
-                          </CardTitle>
-                          {application.stage === "screened" && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs h-16 w-16 p-0"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                // Phone action logic can be added here
-                              }}
-                            >
-                              <Phone className="h-48 w-48" />
-                            </Button>
-                          )}
-                          {application.stage === "first_interview" && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs h-16 w-16 p-0"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                // Video action logic can be added here
-                              }}
-                            >
-                              <Video className="h-48 w-48" />
-                            </Button>
-                          )}
-                        </div>
-                      </CardHeader>
+                       <CardHeader className="pb-3">
+                         <div className="flex items-center justify-between">
+                           <CardTitle className="text-base font-medium">
+                             {application.candidateName}
+                           </CardTitle>
+                           <div className="flex items-center gap-2">
+                             {application.stage === "applied" && (
+                               <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                 {Math.floor(Math.random() * 41) + 60}% fit
+                               </div>
+                             )}
+                             {application.stage === "screened" && (
+                               <Button
+                                 size="sm"
+                                 variant="outline"
+                                 className="text-xs h-16 w-16 p-0"
+                                 onClick={(e) => {
+                                   e.stopPropagation();
+                                   // Phone action logic can be added here
+                                 }}
+                               >
+                                 <Phone className="h-48 w-48" />
+                               </Button>
+                             )}
+                             {application.stage === "first_interview" && (
+                               <Button
+                                 size="sm"
+                                 variant="outline"
+                                 className="text-xs h-16 w-16 p-0"
+                                 onClick={(e) => {
+                                   e.stopPropagation();
+                                   // Video action logic can be added here
+                                 }}
+                               >
+                                 <Video className="h-48 w-48" />
+                               </Button>
+                             )}
+                           </div>
+                         </div>
+                       </CardHeader>
                       <CardContent className="pt-0">
                         <p className="text-sm text-muted-foreground mb-2">
                           {application.email}

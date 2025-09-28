@@ -237,7 +237,22 @@ const Applications = () => {
             return (
               <div key={stage.id} className="flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-lg">{stage.title}</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-lg">{stage.title}</h3>
+                    {stage.id === "applied" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="text-xs"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Rank action logic can be added here
+                        }}
+                      >
+                        rank
+                      </Button>
+                    )}
+                  </div>
                   <Badge variant="secondary" className="text-xs">
                     {stageApplications.length}
                   </Badge>
@@ -314,19 +329,6 @@ const Applications = () => {
                               {targetStage.id === "second_interview" && "2"}
                             </Button>
                           ))}
-                          {application.stage === "applied" && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                // Rank action logic can be added here
-                              }}
-                            >
-                              rank
-                            </Button>
-                          )}
                         </div>
                       </CardContent>
                     </Card>

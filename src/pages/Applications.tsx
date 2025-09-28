@@ -314,6 +314,19 @@ const Applications = () => {
                               {targetStage.id === "second_interview" && "2"}
                             </Button>
                           ))}
+                          {application.stage === "applied" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                // Rank action logic can be added here
+                              }}
+                            >
+                              rank
+                            </Button>
+                          )}
                         </div>
                       </CardContent>
                     </Card>

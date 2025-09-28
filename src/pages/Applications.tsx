@@ -243,7 +243,7 @@ const Applications = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="text-xs"
+                        className="text-xs font-bold scale-110"
                         onClick={(e) => {
                           e.stopPropagation();
                           // Rank action logic can be added here

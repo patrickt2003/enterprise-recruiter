@@ -330,7 +330,7 @@ const Applications = () => {
                         className="text-xs font-bold scale-110"
                         onClick={handleRankApplications}
                       >
-                        rank
+                        RANK
                       </Button>
                     )}
                   </div>

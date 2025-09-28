@@ -127,6 +127,69 @@ const Applications = () => {
       .sort((a, b) => (a.rank || 0) - (b.rank || 0));
   };
 
+  const handleRankApplications = async () => {
+    if (!roleId) return;
+    
+    try {
+      const appId = parseInt(roleId);
+      if (Number.isNaN(appId)) return;
+
+      // Get all applicants in "Applied" stage for this job
+      const { data: appliedApplicants, error: fetchError } = await supabase
+        .from("applicants")
+        .select("id")
+        .eq("application_id", appId)
+        .eq("status", 1); // Applied stage
+
+      if (fetchError) {
+        console.error("Error fetching applied applicants:", fetchError);
+        toast({ title: "Error", description: "Failed to fetch applicants.", variant: "destructive" });
+        return;
+      }
+
+      if (!appliedApplicants || appliedApplicants.length === 0) {
+        toast({ title: "No applicants", description: "No applicants found in Applied stage.", variant: "destructive" });
+        return;
+      }
+
+      // Generate unique random ranks (1 to number of applicants)
+      const numberOfApplicants = appliedApplicants.length;
+      const ranks = Array.from({ length: numberOfApplicants }, (_, i) => i + 1);
+      
+      // Fisher-Yates shuffle to randomize ranks
+      for (let i = ranks.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [ranks[i], ranks[j]] = [ranks[j], ranks[i]];
+      }
+
+      // Update each applicant with their random rank
+      const updatePromises = appliedApplicants.map((applicant, index) => 
+        supabase
+          .from("applicants")
+          .update({ rank: ranks[index] })
+          .eq("id", applicant.id)
+      );
+
+      const results = await Promise.all(updatePromises);
+      
+      // Check for any errors in the updates
+      const hasErrors = results.some(result => result.error);
+      if (hasErrors) {
+        console.error("Some updates failed:", results);
+        toast({ title: "Partial success", description: "Some ranks may not have been updated.", variant: "destructive" });
+      } else {
+        toast({ title: "Success", description: `Ranked ${numberOfApplicants} applicants randomly.` });
+      }
+
+      // Refresh the applications to show new ranks
+      await fetchApplications();
+      
+    } catch (error) {
+      console.error("Error ranking applications:", error);
+      toast({ title: "Error", description: "Failed to rank applicants.", variant: "destructive" });
+    }
+  };
+
   const moveApplication = async (applicationId: string, newStage: string) => {
     const newStatus = getStatusFromStage(newStage as Application["stage"]);
     
@@ -244,10 +307,7 @@ const Applications = () => {
                         size="sm"
                         variant="outline"
                         className="text-xs font-bold scale-110"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Rank action logic can be added here
-                        }}
+                        onClick={handleRankApplications}
                       >
                         rank
                       </Button>

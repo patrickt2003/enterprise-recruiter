@@ -21,6 +21,7 @@ export type Database = {
           CV: string | null
           email: string | null
           "first name": string | null
+          fit_score: number | null
           id: string
           "last name": string | null
           rank: number | null
@@ -33,6 +34,7 @@ export type Database = {
           CV?: string | null
           email?: string | null
           "first name"?: string | null
+          fit_score?: number | null
           id?: string
           "last name"?: string | null
           rank?: number | null
@@ -45,6 +47,7 @@ export type Database = {
           CV?: string | null
           email?: string | null
           "first name"?: string | null
+          fit_score?: number | null
           id?: string
           "last name"?: string | null
           rank?: number | null

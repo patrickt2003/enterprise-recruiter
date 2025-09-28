@@ -17,6 +17,7 @@ interface Application {
   stage: "applied" | "screened" | "first_interview" | "second_interview";
   cv?: string;
   rank?: number;
+  fit_score?: number;
 }
 
 type OpenRole = {
@@ -58,6 +59,7 @@ const Applications = () => {
         stage: getStageFromStatus(applicant.status || 1),
         cv: applicant.CV || undefined,
         rank: applicant.rank || 0,
+        fit_score: applicant.fit_score || null,
       })) || [];
 
       setApplications(formattedApplications);
@@ -341,7 +343,7 @@ const Applications = () => {
                            <div className="flex items-center gap-2">
                               {application.stage === "applied" && (
                                 <div className="bg-blue-100 text-blue-800 px-3 py-2 rounded-full text-sm font-semibold">
-                                  {Math.floor(Math.random() * 41) + 60}% fit
+                                  {application.fit_score ? `${application.fit_score}%` : 'N/A'} fit
                                 </div>
                               )}
                              {application.stage === "screened" && (

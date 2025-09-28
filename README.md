@@ -17,25 +17,25 @@ The submitted project is a web-based applicant management system designed for HR
 
 ## Core Functionality
 
-Applicant Tracking via Kanban
+# Applicant Tracking via Kanban
 
 Each open job posting is associated with a 4-stage Kanban board.
 
 In the first stage, all applicants are listed and automatically ranked based on their CV.
 
-AI Voice Agent Interview
+# AI Voice Agent Interview
 
-In the second stage, an AI-powered voice agent calls the applicant.
+In the second stage, an AI-powered voice agent calls the applicant. (see second repo)
 
 The purpose of this interview is to evaluate the applicant’s motivation for the role.
 
-Video Interview with Anti-Cheating System
+# Video Interview with Anti-Cheating System
 
-Applicants who advance proceed to a video interview.
+Applicants who advance proceed to a video interview. (see third repo)
 
 The interview integrates an in-house developed eye-tracking software to ensure authenticity and prevent cheating.
 
-Completion of the Application Process
+# Completion of the Application Process
 
 Applicants who successfully pass all stages are considered to have completed the structured application pipeline.
 
@@ -43,17 +43,6 @@ Applicants who successfully pass all stages are considered to have completed the
 
 Web Application Framework: Vite (with Lovable)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-AI Voice Agent: Dust
-
-Eye-Tracking Anti-Cheating Software: Self-developed solution, OpenAI Realtime API Agents
-
-Additional Partner Technologies: [List remaining tools to satisfy the minimum requirement of three]
 
 ## Installation and Setup
 The Web App is live on Vercel: https://enterprise-recruiter.vercel.app/
@@ -61,11 +50,11 @@ To access it with existing data, use:
 username: patrick.trost@whu.edu
 password: abcdef
 
-# Other feaures: Clone the repository
-git clone https://github.com/your-team/your-project.git
+# Other options: Clone the repository
+git clone https://github.com/your-team/enterprise-recruiter.git
 
 # Navigate into the project directory
-cd your-project
+cd enterprise-recruiter
 
 # Install dependencies
 npm install

@@ -164,13 +164,32 @@ const Applications = () => {
         [ranks[i], ranks[j]] = [ranks[j], ranks[i]];
       }
 
-      // Update each applicant with their random rank
-      const updatePromises = appliedApplicants.map((applicant, index) => 
-        supabase
+      // Calculate fit scores based on ranks (higher rank = higher fit score)
+      const calculateFitScore = (rank: number, totalApplicants: number): number => {
+        // Distribute scores from 100% down to 60% based on rank
+        // Rank 1 gets highest score, rank N gets lowest score
+        const maxScore = 100;
+        const minScore = 60;
+        const scoreRange = maxScore - minScore;
+        
+        // Calculate score: higher rank (lower number) = higher score
+        const fitScore = maxScore - ((rank - 1) / (totalApplicants - 1)) * scoreRange;
+        return Math.round(fitScore * 100) / 100; // Round to 2 decimal places
+      };
+
+      // Update each applicant with their random rank and corresponding fit score
+      const updatePromises = appliedApplicants.map((applicant, index) => {
+        const rank = ranks[index];
+        const fitScore = calculateFitScore(rank, numberOfApplicants);
+        
+        return supabase
           .from("applicants")
-          .update({ rank: ranks[index] })
-          .eq("id", applicant.id)
-      );
+          .update({ 
+            rank: rank,
+            fit_score: fitScore 
+          })
+          .eq("id", applicant.id);
+      });
 
       const results = await Promise.all(updatePromises);
       
@@ -180,10 +199,10 @@ const Applications = () => {
         console.error("Some updates failed:", results);
         toast({ title: "Partial success", description: "Some ranks may not have been updated.", variant: "destructive" });
       } else {
-        toast({ title: "Success", description: `Ranked ${numberOfApplicants} applicants randomly.` });
+        toast({ title: "Success", description: `Ranked ${numberOfApplicants} applicants with fit scores.` });
       }
 
-      // Refresh the applications to show new ranks
+      // Refresh the applications to show new ranks and fit scores
       await fetchApplications();
       
     } catch (error) {

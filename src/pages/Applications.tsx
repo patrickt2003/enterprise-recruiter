@@ -339,11 +339,11 @@ const Applications = () => {
                              {application.candidateName}
                            </CardTitle>
                            <div className="flex items-center gap-2">
-                             {application.stage === "applied" && (
-                               <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
-                                 {Math.floor(Math.random() * 41) + 60}% fit
-                               </div>
-                             )}
+                              {application.stage === "applied" && (
+                                <div className="bg-blue-100 text-blue-800 px-3 py-2 rounded-full text-sm font-semibold">
+                                  {Math.floor(Math.random() * 41) + 60}% fit
+                                </div>
+                              )}
                              {application.stage === "screened" && (
                                <Button
                                  size="sm"
